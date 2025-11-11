@@ -140,7 +140,7 @@
   margin-top: 30px;
 }
 
-.buttonGroup button {
+.submitButton {
   flex: 1;
   padding: 12px;
   border: none;
@@ -149,24 +149,29 @@
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s;
-}
-
-.buttonGroup button[type="submit"] {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
-.buttonGroup button[type="submit"]:hover {
+.submitButton:hover {
   transform: translateY(-2px);
 }
 
-.buttonGroup button[type="submit"]:disabled {
+.submitButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
 .resetButton {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
   background: #666;
   color: white;
 }

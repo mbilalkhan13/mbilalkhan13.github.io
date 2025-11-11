@@ -181,7 +181,7 @@ export default function Dashboard() {
             {error && <div className={styles.error}>{error}</div>}
 
             <div className={styles.buttonGroup}>
-              <button type="submit" disabled={isUploading || !selectedFile}>
+              <button type="submit" className={styles.submitButton} disabled={isUploading || !selectedFile}>
                 {isUploading ? 'Processing...' : 'Resize Image'}
               </button>
               <button type="button" onClick={handleReset} className={styles.resetButton}>

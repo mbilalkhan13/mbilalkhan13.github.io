@@ -94,7 +94,7 @@ export default function Register() {
             />
           </div>
           {error && <div className={styles.error}>{error}</div>}
-          <button type="submit" disabled={isSubmitting}>
+          <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
             {isSubmitting ? 'Registering...' : 'Register'}
           </button>
         </form>
