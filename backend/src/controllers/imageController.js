@@ -115,7 +115,21 @@ const uploadImage = async (req, res) => {
 const deleteImage = async (req, res) => {
   try {
     const { filename } = req.params;
-    const filePath = path.join(__dirname, '../../uploads', filename);
+    
+    // Sanitize filename to prevent path traversal attacks
+    const sanitizedFilename = path.basename(filename);
+    
+    // Only allow files in the uploads directory
+    const filePath = path.join(__dirname, '../../uploads', sanitizedFilename);
+    const uploadsDir = path.join(__dirname, '../../uploads');
+    
+    // Verify the resolved path is within the uploads directory
+    if (!filePath.startsWith(uploadsDir)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid file path'
+      });
+    }
 
     await fs.unlink(filePath);
 
@@ -127,7 +141,7 @@ const deleteImage = async (req, res) => {
     console.error('Delete error:', error);
     res.status(500).json({ 
       success: false, 
-      message: 'Failed to delete image' 
+      message: 'Failed to delete image'
     });
   }
 };
