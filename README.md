@@ -37,6 +37,8 @@ A modern full-stack web application for resizing images with user authentication
 ### Backend
 - Node.js
 - Express.js
+- Drizzle ORM
+- PostgreSQL
 - JWT (jsonwebtoken)
 - bcryptjs (password hashing)
 - Sharp (image processing)
@@ -78,9 +80,16 @@ cp .env.example .env
 PORT=5000
 JWT_SECRET=your_secure_jwt_secret_key
 NODE_ENV=development
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/student_api
 ```
 
-5. Start the backend server:
+5. Generate and apply database migrations:
+```bash
+npm run db:generate
+npm run db:migrate
+```
+
+6. Start the backend server:
 ```bash
 npm run dev
 ```
@@ -150,6 +159,13 @@ The frontend will run on `http://localhost:3000`
 - `POST /api/images/resize` - Upload and resize an image (protected)
 - `DELETE /api/images/:filename` - Delete an image (protected)
 
+### Students
+- `POST /api/students` - Create a student
+- `GET /api/students` - Get all students
+- `GET /api/students/:id` - Get student by ID
+- `PUT /api/students/:id` - Update student by ID
+- `DELETE /api/students/:id` - Delete student by ID
+
 ### Health
 - `GET /api/health` - Server health check
 
@@ -159,16 +175,21 @@ The frontend will run on `http://localhost:3000`
 .
 ├── backend/
 │   ├── src/
+│   │   ├── db/
+│   │   │   ├── client.js
+│   │   │   └── schema.js
 │   │   ├── controllers/
 │   │   │   ├── authController.js
-│   │   │   └── imageController.js
+│   │   │   ├── imageController.js
+│   │   │   └── studentController.js
 │   │   ├── middleware/
 │   │   │   └── auth.js
 │   │   ├── models/
 │   │   │   └── User.js
 │   │   ├── routes/
 │   │   │   ├── auth.js
-│   │   │   └── image.js
+│   │   │   ├── image.js
+│   │   │   └── students.js
 │   │   ├── utils/
 │   │   │   └── jwt.js
 │   │   └── server.js
