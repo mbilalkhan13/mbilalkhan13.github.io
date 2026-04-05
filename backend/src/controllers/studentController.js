@@ -2,7 +2,35 @@ const { eq } = require('drizzle-orm');
 const { db } = require('../db/client');
 const { students } = require('../db/schema');
 
-const isValidEmail = (email) => typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isValidEmail = (email) => {
+  if (typeof email !== 'string') {
+    return false;
+  }
+
+  const normalized = email.trim();
+  if (!normalized || normalized.length > 254 || normalized.includes(' ')) {
+    return false;
+  }
+
+  const atIndex = normalized.indexOf('@');
+  if (atIndex <= 0 || atIndex !== normalized.lastIndexOf('@')) {
+    return false;
+  }
+
+  const localPart = normalized.slice(0, atIndex);
+  const domainPart = normalized.slice(atIndex + 1);
+
+  if (!localPart || !domainPart) {
+    return false;
+  }
+
+  const dotIndex = domainPart.indexOf('.');
+  if (dotIndex <= 0 || dotIndex === domainPart.length - 1) {
+    return false;
+  }
+
+  return true;
+};
 
 const validateStudentInput = ({ name, email, age, grade }) => {
   if (!name || !email || age === undefined || !grade) {
