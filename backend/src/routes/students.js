@@ -1,5 +1,6 @@
 const express = require('express');
 const authMiddleware = require('../middleware/auth');
+const { studentLimiter } = require('../middleware/rateLimiter');
 const {
   createStudent,
   getStudents,
@@ -11,6 +12,7 @@ const {
 const router = express.Router();
 
 router.use(authMiddleware);
+router.use(studentLimiter);
 router.post('/', createStudent);
 router.get('/', getStudents);
 router.get('/:id', getStudentById);
