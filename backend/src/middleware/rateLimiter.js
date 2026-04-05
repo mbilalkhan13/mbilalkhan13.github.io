@@ -18,4 +18,13 @@ const imageLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-module.exports = { authLimiter, imageLimiter };
+// Rate limiter for student CRUD operations
+const studentLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 60, // Limit each IP to 60 student operations per windowMs
+  message: 'Too many student API requests, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+module.exports = { authLimiter, imageLimiter, studentLimiter };
