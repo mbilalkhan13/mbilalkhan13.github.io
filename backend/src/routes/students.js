@@ -11,12 +11,10 @@ const {
 
 const router = express.Router();
 
-router.use(authMiddleware);
-router.use(studentLimiter);
-router.post('/', createStudent);
-router.get('/', getStudents);
-router.get('/:id', getStudentById);
-router.put('/:id', updateStudent);
-router.delete('/:id', deleteStudent);
+router.post('/', authMiddleware, studentLimiter, createStudent);
+router.get('/', authMiddleware, studentLimiter, getStudents);
+router.get('/:id', authMiddleware, studentLimiter, getStudentById);
+router.put('/:id', authMiddleware, studentLimiter, updateStudent);
+router.delete('/:id', authMiddleware, studentLimiter, deleteStudent);
 
 module.exports = router;
