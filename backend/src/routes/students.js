@@ -1,6 +1,4 @@
 const express = require('express');
-const authMiddleware = require('../middleware/auth');
-const { studentLimiter } = require('../middleware/rateLimiter');
 const {
   createStudent,
   getStudents,
@@ -11,10 +9,10 @@ const {
 
 const router = express.Router();
 
-router.post('/', authMiddleware, studentLimiter, createStudent);
-router.get('/', authMiddleware, studentLimiter, getStudents);
-router.get('/:id', authMiddleware, studentLimiter, getStudentById);
-router.put('/:id', authMiddleware, studentLimiter, updateStudent);
-router.delete('/:id', authMiddleware, studentLimiter, deleteStudent);
+router.post('/', createStudent);
+router.get('/', getStudents);
+router.get('/:id', getStudentById);
+router.put('/:id', updateStudent);
+router.delete('/:id', deleteStudent);
 
 module.exports = router;
